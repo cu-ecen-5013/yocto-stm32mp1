@@ -9,7 +9,30 @@ git submodule init
 # Sync them
 git submodule update --init --recursive
 # Source the build environment
-# Change the machine name and distribution if you are making changes to that.
+# TODO: Change the machine name and distribution if you are making changes to that.
 DISTRO=openstlinux-weston MACHINE=stm32mp1 source ./layers/meta-st/scripts/envsetup.sh
 
-echo $parent_dir
+bitbake-layers show-layers | grep "meta-oe" > /dev/null
+layer_info=$?
+if [ $layer_info -ne 0 ];then
+	echo "Adding meta-oe layer"
+	bitbake-layers add-layer ../layers/meta-openembedded/meta-oe
+else
+	echo "meta-oe layer already exists"
+fi
+
+bitbake-layers show-layers | grep "meta-python" > /dev/null
+layer_info=$?
+if [ $layer_info -ne 0 ];then
+	echo "Adding meta-python layer"
+	bitbake-layers add-layer ../layers/meta-openembedded/meta-python
+else
+	echo "meta-python layer already exists"
+fi
+
+# TODO: Add more layers in the similar format
+
+set -e
+
+# TODO: Change st-image-weston with the image you want to build
+bitbake st-image-weston
