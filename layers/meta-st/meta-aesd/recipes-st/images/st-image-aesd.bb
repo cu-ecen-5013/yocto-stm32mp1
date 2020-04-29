@@ -43,4 +43,5 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 #   packagegroup-st-demo are installed on rootfs to populate the package
 #   database.
 CORE_IMAGE_EXTRA_INSTALL += " \
+    hello-world \
     "
