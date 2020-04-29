@@ -32,7 +32,16 @@ fi
 
 # TODO: Add more layers in the similar format
 
+bitbake-layers show-layers | grep "meta-aesd" > /dev/null
+layer_info=$?
+if [ $layer_info -ne 0 ];then
+	echo "Adding meta-aesd layer"
+	bitbake-layers add-layer ../layers/meta-st/meta-aesd
+else
+	echo "meta-aesd layer already exists"
+fi
+
 set -e
 
 # TODO: Change st-image-weston with the image you want to build
-bitbake st-image-weston
+bitbake st-image-aesd
