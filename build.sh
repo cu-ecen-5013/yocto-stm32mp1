@@ -44,4 +44,4 @@ fi
 set -e
 
 # TODO: Change st-image-weston with the image you want to build
-bitbake st-image-weston
+bitbake st-image-aesd
