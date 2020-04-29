@@ -22,3 +22,7 @@
 [submodule "layers/openembedded-core"]
 	path = layers/openembedded-core
 	url = https://github.com/cu-ecen-5013/openembedded-core.git
+[submodule "layers/meta-iotedge"]
+	path = layers/meta-iotedge
+	url = https://github.com/Azure/meta-iotedge.git
+	branch = thud
