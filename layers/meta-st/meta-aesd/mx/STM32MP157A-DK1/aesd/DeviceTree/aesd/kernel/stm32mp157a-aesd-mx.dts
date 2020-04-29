@@ -169,20 +169,6 @@
 &pinctrl {
 	u-boot,dm-pre-reloc;
 
-	adc_pins_mx: adc_mx-0 {
-		pins {
-			pinmux = <STM32_PINMUX('A', 4, ANALOG)>, /* ADC1_INP18 */
-					 <STM32_PINMUX('A', 5, ANALOG)>; /* ADC1_INP19 */
-		};
-	};
-
-	adc_sleep_pins_mx: adc_sleep_mx-0 {
-		pins {
-			pinmux = <STM32_PINMUX('A', 4, ANALOG)>, /* ADC1_INP18 */
-					 <STM32_PINMUX('A', 5, ANALOG)>; /* ADC1_INP19 */
-		};
-	};
-
 	eth1_pins_mx: eth1_mx-0 {
 		pins1 {
 			pinmux = <STM32_PINMUX('A', 1, AF11)>, /* ETH1_RX_CLK */
@@ -371,6 +357,13 @@
 		};
 	};
 
+	m4_adc_pins_mx: m4_adc_mx-0 {
+		pins {
+			pinmux = <STM32_PINMUX('A', 4, ANALOG)>, /* ADC1_INP18 */
+					 <STM32_PINMUX('A', 5, ANALOG)>; /* ADC1_INP19 */
+		};
+	};
+
 	sai2a_pins_mx: sai2a_mx-0 {
 		pins {
 			pinmux = <STM32_PINMUX('E', 0, AF10)>, /* SAI2_MCLK_A */
@@ -540,42 +533,13 @@
 	interrupt-names = "wdg";
 	wakeup-source;
 	/* USER CODE END m4_rproc */
-};
 
-&adc{
-	pinctrl-names = "default", "sleep";
-	pinctrl-0 = <&adc_pins_mx>;
-	pinctrl-1 = <&adc_sleep_pins_mx>;
-	status = "okay";
+	m4_system_resources{
+		status = "okay";
 
-	/* USER CODE BEGIN adc */
-	vdd-supply = <&vdd>;
-	vdda-supply = <&vdd>;
-	vref-supply = <&vrefbuf>;
-	adc1: adc@0 {
-		/*
-		 * Type-C USB_PWR_CC1 & USB_PWR_CC2 on in18 & in19.
-		 * Use at least 5 * RC time, e.g. 5 * (Rp + Rd) * C:
-		 * 5 * (56 + 47kOhms) * 5pF => 2.5us.
-		 * Use arbitrary margin here (e.g. 5µs).
-		 */
-		st,min-sample-time-nsecs = <5000>;
-		/* ANA0, ANA1, USB Type-C CC1 & CC2 */
-		st,adc-channels = <0 1 6 13 18 19>;
-		status = "okay";
+		/* USER CODE BEGIN m4_system_resources */
+		/* USER CODE END m4_system_resources */
 	};
-	adc2: adc@100 {
-		/* ANA0, ANA1, temp sensor, USB Type-C CC1 & CC2 */
-		st,adc-channels = <0 1 2 6 12 18 19>;
-		/* temperature sensor min sample time */
-		st,min-sample-time-nsecs = <10000>;
-		status = "okay";
-	};
-	
-	adc_temp: temp {
-		status = "okay";
-	};
-	/* USER CODE END adc */
 };
 
 &bsec{
@@ -956,6 +920,15 @@
 		};
 	};
 	/* USER CODE END ltdc */
+};
+
+&m4_adc{
+	pinctrl-names = "default";
+	pinctrl-0 = <&m4_adc_pins_mx>;
+	status = "okay";
+
+	/* USER CODE BEGIN m4_adc */
+	/* USER CODE END m4_adc */
 };
 
 &pwr{
