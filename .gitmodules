@@ -26,3 +26,9 @@
 	path = layers/meta-iotedge
 	url = https://github.com/Azure/meta-iotedge.git
 	branch = thud
+[submodule "layers/meta-virtualization"]
+	path = layers/meta-virtualization
+	url = git://git.yoctoproject.org/meta-virtualization
+[submodule "layers/meta-rust"]
+	path = layers/meta-rust
+	url = https://github.com/meta-rust/meta-rust.git
