@@ -10,7 +10,7 @@ git submodule init
 git submodule update --init --recursive
 # Source the build environment
 # TODO: Change the machine name and distribution if you are making changes to that.
-DISTRO=openstlinux-weston MACHINE=stm32mp1 source ./layers/meta-st/scripts/envsetup.sh
+DISTRO=openstlinux-weston MACHINE=stm32mp1-aesd source ./layers/meta-st/scripts/envsetup.sh
 
 bitbake-layers show-layers | grep "meta-oe" > /dev/null
 layer_info=$?
@@ -42,6 +42,5 @@ else
 fi
 
 set -e
-
 # TODO: Change st-image-weston with the image you want to build
-bitbake st-image-aesd
+bitbake st-image-weston
